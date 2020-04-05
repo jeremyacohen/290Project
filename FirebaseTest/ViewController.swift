@@ -7,12 +7,30 @@
 //
 
 import UIKit
-
+import FirebaseDatabase
 class ViewController: UIViewController {
-
+    var id:String = "0"
+    var joinGroup:Bool = false
+    @IBAction func joinButton(_ sender: Any) {
+        joinGroup = true
+    }
+    @IBOutlet weak var joinButtton: UIButton!
+    
+    @IBOutlet weak var textField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC = segue.destination as! myTableViewController
+        if joinGroup {
+            id = textField.text!
+        }
+        else{
+            id = "1"
+        }
+        destVC.groupID = id
     }
 
 
