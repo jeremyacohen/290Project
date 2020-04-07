@@ -72,6 +72,7 @@ class myTableViewController: UITableViewController {
         ref = Database.database().reference()
         groupLabel.text = "GroupID: \(groupID)"
         databaseHandleAdd = ref?.child("\(groupID)/Songs").observe(.childAdded) { (snapshot) in
+            print ("Add")
             let id = snapshot.key
             let dict = snapshot.value as! [String: Any]
             let s = Song(name: dict["name"] as! String, vote: dict["vote"] as! Int)
@@ -86,24 +87,15 @@ class myTableViewController: UITableViewController {
             
         }
         
-        databaseHandleUpdate = ref?.child("\(self.groupID)/Songs").observe(.value, with: { (snapshot) in
-            self.allKeys = [:]
-            self.sortedKeys = []
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                let id = child.key
-                let dict = child.value as! [String: Any]
-                let s = Song(name: dict["name"] as! String, vote: dict["vote"] as! Int)
-                self.allKeys[id] = s
-            }
+        databaseHandleUpdate = ref?.child("\(self.groupID)/Songs").observe(.childChanged, with: { (snapshot) in
+
+            let dict = snapshot.value! as! [String: Any]
+            self.allKeys[snapshot.key]!.vote = dict["vote"] as! Int
+
             self.sortedKeys = self.allKeys.keys.sorted(by: { (firstKey, secondKey) -> Bool in
                 return self.allKeys[firstKey]!.vote > self.allKeys[secondKey]!.vote
             })
             self.tableView.reloadData()
-            /*
-            self.sortedKeys = self.allKeys.keys.sorted(by: { (firstKey, secondKey) -> Bool in
-                return self.allKeys[firstKey]!.vote > self.allKeys[secondKey]!.vote
-            })
-            self.tableView.reloadData()*/
         })
         
         
