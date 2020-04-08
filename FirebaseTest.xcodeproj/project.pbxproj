@@ -16,6 +16,7 @@
 		3F3C7C7924380C50003CE349 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F3C7C7824380C50003CE349 /* GoogleService-Info.plist */; };
 		3F3C7C7F243819C7003CE349 /* myTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3C7C7E243819C7003CE349 /* myTableViewController.swift */; };
 		3F3C7C8124387343003CE349 /* submitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3C7C8024387343003CE349 /* submitViewController.swift */; };
+		3FFF471B243DBE5D003676C7 /* adminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFF471A243DBE5D003676C7 /* adminTableViewController.swift */; };
 		F0601A340131ED84B56BC4F1 /* Pods_FirebaseTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70AD2903D20DF048DE4E4244 /* Pods_FirebaseTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		3F3C7C7824380C50003CE349 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3F3C7C7E243819C7003CE349 /* myTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myTableViewController.swift; sourceTree = "<group>"; };
 		3F3C7C8024387343003CE349 /* submitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = submitViewController.swift; sourceTree = "<group>"; };
+		3FFF471A243DBE5D003676C7 /* adminTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = adminTableViewController.swift; sourceTree = "<group>"; };
 		70AD2903D20DF048DE4E4244 /* Pods_FirebaseTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77AFB5F15E69F994C60D688F /* Pods-FirebaseTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseTest.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseTest/Pods-FirebaseTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C25501716E507FB43B025369 /* Pods-FirebaseTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseTest.release.xcconfig"; path = "Target Support Files/Pods-FirebaseTest/Pods-FirebaseTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				3F3C7C662437F924003CE349 /* SceneDelegate.swift */,
 				3F3C7C682437F924003CE349 /* ViewController.swift */,
 				3F3C7C6A2437F924003CE349 /* Main.storyboard */,
+				3FFF471A243DBE5D003676C7 /* adminTableViewController.swift */,
 				3F3C7C8024387343003CE349 /* submitViewController.swift */,
 				3F3C7C7E243819C7003CE349 /* myTableViewController.swift */,
 				3F3C7C6D2437F92F003CE349 /* Assets.xcassets */,
@@ -221,6 +224,7 @@
 				3F3C7C692437F924003CE349 /* ViewController.swift in Sources */,
 				3F3C7C652437F924003CE349 /* AppDelegate.swift in Sources */,
 				3F3C7C672437F924003CE349 /* SceneDelegate.swift in Sources */,
+				3FFF471B243DBE5D003676C7 /* adminTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

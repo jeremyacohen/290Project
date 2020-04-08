@@ -17,7 +17,7 @@ class submitViewController: UIViewController {
     @IBAction func submitButton(_ sender: Any) {
         ref = Database.database().reference()
         if textField.text != ""{
-            ref?.child("\(groupID)/Songs").childByAutoId().setValue(["name": textField.text!, "vote": 0])
+            ref?.child("Songs/\(groupID)").childByAutoId().setValue(["name": textField.text!, "bump": 0, "person": "Anon", "remove": 0 ])
         }
         textField.text = ""
     }

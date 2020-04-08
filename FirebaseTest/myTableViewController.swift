@@ -26,7 +26,7 @@ class myTableViewCell: UITableViewCell {
             upButton.tintColor = .green
         }
         ref = Database.database().reference()
-        self.ref?.child("\(groupID)/Songs/\(songID)/vote").setValue(Int(voteLabel.text!)! + 1)
+        self.ref?.child("/Songs/\(groupID)/\(songID)/bump").setValue(Int(voteLabel.text!)! + 1)
     }
     
     @IBAction func downButton(_ sender: Any) {
@@ -39,7 +39,7 @@ class myTableViewCell: UITableViewCell {
             downButton.tintColor = .red
         }
         // ref = Database.database().reference()
-        self.ref?.child("\(groupID)/Songs/\(songID)/vote").setValue(Int(voteLabel.text!)! - 1)
+        self.ref?.child("/Songs/\(groupID)/\(songID)/bump").setValue(Int(voteLabel.text!)! - 1)
     }
     @IBOutlet weak var songLabel: UILabel!
     @IBOutlet weak var voteLabel: UILabel!
@@ -57,10 +57,14 @@ class myTableViewCell: UITableViewCell {
 }
 class myTableViewController: UITableViewController {
     var groupID:String = ""
+    var adminBool: Bool = false
+    @IBOutlet weak var endSessionButton: UIBarButtonItem!
+    @IBAction func endSession(_ sender: Any) {
+    }
     @IBOutlet weak var groupLabel: UILabel!
     struct Song: Codable {
         var name:String
-        var vote:Int
+        var bump:Int
     }
     var ref:DatabaseReference?
     var databaseHandleAdd:DatabaseHandle?
@@ -71,29 +75,29 @@ class myTableViewController: UITableViewController {
     func getAllData() {
         ref = Database.database().reference()
         groupLabel.text = "GroupID: \(groupID)"
-        databaseHandleAdd = ref?.child("\(groupID)/Songs").observe(.childAdded) { (snapshot) in
+        databaseHandleAdd = ref?.child("Songs/\(groupID)").observe(.childAdded) { (snapshot) in
             print ("Add")
             let id = snapshot.key
             let dict = snapshot.value as! [String: Any]
-            let s = Song(name: dict["name"] as! String, vote: dict["vote"] as! Int)
+            let s = Song(name: dict["name"] as! String, bump: dict["bump"] as! Int)
             //self.allSongs.append(s)
             self.allKeys[id] = s
             
 
             self.sortedKeys = self.allKeys.keys.sorted(by: { (firstKey, secondKey) -> Bool in
-                return self.allKeys[firstKey]!.vote > self.allKeys[secondKey]!.vote
+                return self.allKeys[firstKey]!.bump > self.allKeys[secondKey]!.bump
             })
             self.tableView.reloadData()
             
         }
         
-        databaseHandleUpdate = ref?.child("\(self.groupID)/Songs").observe(.childChanged, with: { (snapshot) in
+        databaseHandleUpdate = ref?.child("Songs/\(groupID)").observe(.childChanged, with: { (snapshot) in
 
             let dict = snapshot.value! as! [String: Any]
-            self.allKeys[snapshot.key]!.vote = dict["vote"] as! Int
+            self.allKeys[snapshot.key]!.bump = dict["bump"] as! Int
 
             self.sortedKeys = self.allKeys.keys.sorted(by: { (firstKey, secondKey) -> Bool in
-                return self.allKeys[firstKey]!.vote > self.allKeys[secondKey]!.vote
+                return self.allKeys[firstKey]!.bump > self.allKeys[secondKey]!.bump
             })
             self.tableView.reloadData()
         })
@@ -102,6 +106,10 @@ class myTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !adminBool {
+            endSessionButton.isEnabled = false
+            endSessionButton.tintColor = .clear
+        }
         getAllData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -127,7 +135,7 @@ class myTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! myTableViewCell
         let id = sortedKeys[indexPath.row]
         cell.songLabel.text = allKeys[id]!.name
-        cell.voteLabel.text = String(allKeys[id]!.vote)
+        cell.voteLabel.text = String(allKeys[id]!.bump)
         cell.songID = id
         cell.groupID = self.groupID
         // Configure the cell...
